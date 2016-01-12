@@ -85,9 +85,8 @@ class Gnuradio < Formula
     ENV["CHEETAH_INSTALL_WITHOUT_SETUPTOOLS"] = "1"
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
     $brew_prefix = `/opt/boxen/homebrew/bin/brew --prefix`
-    ENV.prepend_create_path "CMAKE_PREFIX_PATH", $brew_prefix
 
-    resource("cmake").stage do
+    resource("mpherg/tap/cmake33").stage do
       args = %W[
         --prefix=#{buildpath}/cmake
         --no-system-libs
