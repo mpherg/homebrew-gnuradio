@@ -1,4 +1,4 @@
-class Gnuradio < Formula
+class Gnuradio_boxen < Formula
   desc "SDK providing the signal processing runtime and processing blocks"
   homepage "http://gnuradio.squarespace.com/"
   url "http://gnuradio.org/releases/gnuradio/gnuradio-3.7.8.1.tar.gz"
