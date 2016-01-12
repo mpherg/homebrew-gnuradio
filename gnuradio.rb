@@ -52,7 +52,7 @@ class Gnuradio < Formula
   depends_on "portaudio" => :recommended
 
   # gnuradio is known not to compile against CMake >3.3.2 currently.
-  depends_on "mpherg/tap/cmake"
+  depends_on "mpherg/tap/cmake332"
 
   resource "numpy" do
     url "https://pypi.python.org/packages/source/n/numpy/numpy-1.10.1.tar.gz"
@@ -84,32 +84,6 @@ class Gnuradio < Formula
   def install
     ENV["CHEETAH_INSTALL_WITHOUT_SETUPTOOLS"] = "1"
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-    $brew_prefix = `/opt/boxen/homebrew/bin/brew --prefix`
-
-    resource("mpherg/tap/cmake").stage do
-      args = %W[
-        --prefix=#{buildpath}/cmake
-        --no-system-libs
-        --parallel=#{ENV.make_jobs}
-        --datadir=/share/cmake
-        --docdir=/share/doc/cmake
-        --mandir=/share/man
-        --system-zlib
-        --system-bzip2
-      ]
-
-      # https://github.com/Homebrew/homebrew/issues/45989
-      if MacOS.version <= :lion
-        args << "--no-system-curl"
-      else
-        args << "--system-curl"
-      end
-
-      system "./bootstrap", *args
-      system "make"
-      system "make", "install"
-    end
-
     ENV.prepend_path "PATH", buildpath/"cmake/bin"
 
     res = %w[Markdown Cheetah lxml numpy]
