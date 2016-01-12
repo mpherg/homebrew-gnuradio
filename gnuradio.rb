@@ -52,7 +52,7 @@ class Gnuradio < Formula
   depends_on "portaudio" => :recommended
 
   # gnuradio is known not to compile against CMake >3.3.2 currently.
-  depends_on "mpherg/tap/cmake33"
+  depends_on "mpherg/tap/cmake"
 
   resource "numpy" do
     url "https://pypi.python.org/packages/source/n/numpy/numpy-1.10.1.tar.gz"
@@ -86,7 +86,7 @@ class Gnuradio < Formula
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
     $brew_prefix = `/opt/boxen/homebrew/bin/brew --prefix`
 
-    resource("mpherg/tap/cmake33").stage do
+    resource("mpherg/tap/cmake").stage do
       args = %W[
         --prefix=#{buildpath}/cmake
         --no-system-libs

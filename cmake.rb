@@ -1,4 +1,4 @@
-class Cmake33 < Formula
+class Cmake < Formula
   desc "Cross-platform make"
   homepage "https://www.cmake.org/"
   url "https://cmake.org/files/v3.3/cmake-3.3.2.tar.gz"
