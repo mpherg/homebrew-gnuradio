@@ -52,7 +52,7 @@ class Gnuradio < Formula
   depends_on "portaudio" => :recommended
 
   # gnuradio is known not to compile against CMake >3.3.2 currently.
-  depends_on "mpherg/tap/cmake332"
+#  depends_on "mpherg/tap/cmake332"
 
   resource "numpy" do
     url "https://pypi.python.org/packages/source/n/numpy/numpy-1.10.1.tar.gz"
