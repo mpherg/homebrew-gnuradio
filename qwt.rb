@@ -48,7 +48,6 @@ class Qwt < Formula
     system "make"
     system "make", "install"
 
-    asdfl;kajsdf;lkjawelf kj;
     include.install_symlink Dir["#{lib}/qwt.framework/Headers"] => qwt
   end
 
@@ -64,6 +63,10 @@ class Qwt < Formula
     end
 
     s
+  end
+
+  def post_install
+    foobar
   end
 end
 
