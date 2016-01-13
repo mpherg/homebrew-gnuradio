@@ -117,9 +117,6 @@ class Gnuradio < Formula
       args << "-DENABLE_#{c.upcase.split("-").join("_")}=ON"
     end
 
-    # Apply FindQwt.cmake patch to look for stuff in boxen homebrew
-    patch :DATA
-
     mkdir "build" do
       system "cmake", "..", *args
       system "make"
@@ -138,35 +135,3 @@ class Gnuradio < Formula
     assert_match version.to_s, shell_output("#{bin}/gnuradio-config-info -v").chomp
   end
 end
-
-__END__
---- ../cmake/Modules/FindQwt.cmake
-+++ ../cmake/Modules/FindQwt.cmake
-@@ -5,6 +5,11 @@
- # qwt_global.h holds a string with the QWT version;
- #   test to make sure it's at least 5.2
-
-+execute_process(
-+  COMMAND /opt/boxen/homebrew/bin/brew --prefix
-+  OUTPUT_VARIABLE brew_prefix
-+  OUTPUT_STRIP_TRAILING_WHITESPACE)
-+
- find_path(QWT_INCLUDE_DIRS
-   NAMES qwt_global.h
-   HINTS
-@@ -19,6 +24,7 @@ find_path(QWT_INCLUDE_DIRS
-   /opt/local/include/qwt
-   /sw/include/qwt
-   /usr/local/lib/qwt.framework/Headers
-+  ${brew_prefix}/Cellar/qwt/6.1.2/lib/qwt.framework/Headers
- )
-
- find_library (QWT_LIBRARIES
-@@ -32,6 +38,7 @@ find_library (QWT_LIBRARIES
-   /opt/local/lib
-   /sw/lib
-   /usr/local/lib/qwt.framework
-+  ${brew_prefix}/Cellar/qwt/6.1.2/lib/qwt.framework
- )
-
- set(QWT_FOUND FALSE)
