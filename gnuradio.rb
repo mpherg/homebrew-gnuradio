@@ -84,6 +84,8 @@ class Gnuradio < Formula
     sha256 "f042d4d66e2a58bd951a3eaf108303e862fad2975693bebf493931df9cd251a5"
   end
 
+  patch :DATA
+
   def install
     ENV["CHEETAH_INSTALL_WITHOUT_SETUPTOOLS"] = "1"
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
@@ -163,3 +165,38 @@ class Gnuradio < Formula
     assert_match version.to_s, shell_output("#{bin}/gnuradio-config-info -v").chomp
   end
 end
+
+__END__
+diff --git a/cmake/Modules/FindQwt.cmake b/cmake/Modules/FindQwt.cmake
+index 3ce49aa..4221310 100644
+--- a/cmake/Modules/FindQwt.cmake
++++ b/cmake/Modules/FindQwt.cmake
+@@ -5,6 +5,11 @@
+ # qwt_global.h holds a string with the QWT version;
+ #   test to make sure it's at least 5.2
+
++execute_process(
++  COMMAND /opt/boxen/homebrew/bin/brew --prefix
++  OUTPUT_VARIABLE brew_prefix
++  OUTPUT_STRIP_TRAILING_WHITESPACE)
++
+ find_path(QWT_INCLUDE_DIRS
+   NAMES qwt_global.h
+   HINTS
+@@ -19,6 +24,7 @@ find_path(QWT_INCLUDE_DIRS
+   /opt/local/include/qwt
+   /sw/include/qwt
+   /usr/local/lib/qwt.framework/Headers
++  ${brew_prefix}/opt/qwt/lib/qwt.framework/Headers
+ )
+
+ find_library (QWT_LIBRARIES
+@@ -32,6 +38,7 @@ find_library (QWT_LIBRARIES
+   /opt/local/lib
+   /sw/lib
+   /usr/local/lib/qwt.framework
++  ${brew_prefix}/opt/qwt/lib/qwt.framework
+ )
+
+ set(QWT_FOUND FALSE)
+
