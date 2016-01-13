@@ -47,8 +47,6 @@ class Qwt < Formula
     system "qmake", *args
     system "make"
     system "make", "install"
-
-    include.install_symlink Dir["#{lib}/qwt.framework/Headers"] => qwt
   end
 
   def caveats
@@ -66,7 +64,7 @@ class Qwt < Formula
   end
 
   def post_install
-    foobar
+    include.install_symlink Dir["#{lib}/qwt.framework/Headers"] => qwt
   end
 end
 
