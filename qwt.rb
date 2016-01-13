@@ -64,7 +64,7 @@ class Qwt < Formula
   end
 
   def post_install
-    include.install_symlink Dir["#{lib}/qwt.framework/Headers"] => qwt
+    include.install_symlink Dir["#{lib}/qwt.framework/Headers"] => "qwt"
   end
 end
 
