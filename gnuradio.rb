@@ -38,7 +38,7 @@ class Gnuradio < Formula
     depends_on "wxpython"
     depends_on "qt"
     depends_on "qwt"
-    depends_on "pyqt"
+    depends_on "pyqt5"
   end
 
   if build.with? "documentation"
